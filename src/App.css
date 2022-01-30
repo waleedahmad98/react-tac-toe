@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.box{
+  background-color: green;
+  padding: 30px;
+}
+
+.tr {
+  border: solid;
+  border-width: 0px 0px 1px 1px;
+  border-color: #282c34;
+}
+
+.tm {
+
+}
+
+.tl {
+
+}
