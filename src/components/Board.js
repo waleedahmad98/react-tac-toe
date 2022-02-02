@@ -1,48 +1,52 @@
 import React, { useState } from 'react';
 import Box from './Box';
+import findBestMove from '../logic/minimax';
+
+
+
 export default function Board() {
-    const [tl, setTl] = useState("") // state for top left box
-    const [tm, setTm] = useState("")
-    const [tr, setTr] = useState("")
-    const [ml, setMl] = useState("")
-    const [mm, setMm] = useState("")
-    const [mr, setMr] = useState("")
-    const [bl, setBl] = useState("")
-    const [bm, setBm] = useState("")
-    const [br, setBr] = useState("")
+    const [board, setBoard] = useState([['', '', ''], ['', '', ''], ['', '', '']])
+
+    const makeMove = () => {
+        let bestMove = findBestMove(board);
+        let copyboard = [...board];
+        copyboard[bestMove.row][bestMove.col] = 'O'
+        setBoard(copyboard)
+    }
+
     return (
         <div>
             <div className='row'>
                 <div className='col-4'>
-                    <Box value={tl} setValue = {setTl} />
+                    <Box board={board} setBoard={setBoard} place={{row: 0, col: 0}} makeMove = {makeMove} />
                 </div>
                 <div className='col-4'>
-                    <Box value={tm} setValue = {setTm} />
+                    <Box board={board} setBoard={setBoard} place={{row: 0, col: 1}} makeMove = {makeMove}/>
                 </div>
                 <div className='col-4'>
-                    <Box value={tr} setValue = {setTr} />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col-4'>
-                    <Box value={ml} setValue = {setMl} />
-                </div>
-                <div className='col-4'>
-                    <Box value={mm} setValue = {setMm} />
-                </div>
-                <div className='col-4'>
-                    <Box value={mr} setValue = {setMr} />
+                    <Box board={board} setBoard={setBoard} place={{row: 0, col: 2}} makeMove = {makeMove}/>
                 </div>
             </div>
             <div className='row'>
                 <div className='col-4'>
-                    <Box value={bl} setValue = {setBl} />
+                    <Box board={board} setBoard={setBoard} place={{row: 1, col: 0}} makeMove = {makeMove}/>
                 </div>
                 <div className='col-4'>
-                    <Box value={bm} setValue = {setBm} />
+                    <Box board={board} setBoard={setBoard} place={{row: 1, col: 1}} makeMove = {makeMove}/>
                 </div>
                 <div className='col-4'>
-                    <Box value={br} setValue = {setBr} />
+                    <Box board={board} setBoard={setBoard} place={{row: 1, col: 2}} makeMove = {makeMove}/>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-4'>
+                    <Box board={board} setBoard={setBoard} place={{row: 2, col: 0}} makeMove = {makeMove}/>
+                </div>
+                <div className='col-4'>
+                    <Box board={board} setBoard={setBoard} place={{row: 2, col: 1}} makeMove = {makeMove}/>
+                </div>
+                <div className='col-4'>
+                    <Box board={board} setBoard={setBoard} place={{row: 2, col: 2}} makeMove = {makeMove}/>
                 </div>
             </div>
         </div>);
