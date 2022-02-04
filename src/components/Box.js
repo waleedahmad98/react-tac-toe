@@ -4,9 +4,14 @@ export default function Box(props) {
 
     const processMove = () => {
         let board = [...props.board];
-        board[props.place.row][props.place.col] = 'X'
-        props.setBoard(board)
-        props.makeMove()
+        if (board[props.place.row][props.place.col] === '') {
+            board[props.place.row][props.place.col] = 'X'
+            props.setBoard(board)
+            props.makeMove()
+        }
+        else{
+            alert("Invalid Move")
+        }
     }
 
     return (
