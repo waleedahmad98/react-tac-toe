@@ -5,7 +5,7 @@ export default function Box(props) {
     const processMove = () => {
         let board = [...props.board];
         if (board[props.place.row][props.place.col] === '') {
-            board[props.place.row][props.place.col] = 'X'
+            board[props.place.row][props.place.col] = props.player
             props.setBoard(board)
             props.makeMove()
         }

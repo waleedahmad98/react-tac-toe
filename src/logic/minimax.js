@@ -4,7 +4,7 @@ class Move {
     }
 }
 
-let player = 'O', opponent = 'X';
+let player, opponent;
 
 function isMovesLeft(board) {
     for (let i = 0; i < 3; i++)
@@ -112,7 +112,9 @@ function minimax(board, depth, isMax) {
     }
 }
 
-export default function findBestMove(board) {
+export default function findBestMove(board, p, o) {
+    player = o;
+    opponent = p;
     let bestVal = -1000;
     let bestMove = new Move();
     bestMove.row = -1;
@@ -138,6 +140,6 @@ export default function findBestMove(board) {
         }
     }
 
-    console.log(bestVal)
+    //console.log(bestVal)
     return bestMove;
 }
