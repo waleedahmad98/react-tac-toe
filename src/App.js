@@ -3,6 +3,7 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import Board from './components/Board';
+import Multiplayer from './components/Multiplayer';
 import { useState } from 'react';
 
 function App() {
@@ -61,9 +62,19 @@ function App() {
           setScreen(0)
         }
         }> Single Player </button>
-        <button className="btn btn-outline-info my-2 w-25"> Multiplayer </button>
+        <button className="btn btn-outline-info my-2 w-25" onClick={() => {
+          setScreen(3)
+        }
+        }> Multiplayer </button>
       </div>
     )
+  }
+  if (screen === 3) {
+    return (
+      <div className='container d-flex flex-column justify-content-around align-items-center h-100'>
+        <Multiplayer/>
+      </div>
+    );
   }
 }
 
