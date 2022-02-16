@@ -4,12 +4,9 @@ import JoinGame from "./JoinGame";
 
 
 function Multiplayer() {
-  const [response, setResponse] = useState("");
   const [createMode, setCreateMode] = useState(0);
   const [joinMode, setJoinMode] = useState(0);
   
-
-
   // useEffect(() => {
   //   const socket = socketIOClient(ENDPOINT);
   //   socket.on("FromAPI", data => {
