@@ -1,20 +1,29 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import socketIOClient from "socket.io-client";
 import MPGame from './MPGame';
-const ENDPOINT = "http://127.0.0.1:8000";
+const ENDPOINT = process.env.REACT_APP_ENDPOINT//"http://127.0.0.1:8000";
 
 export default function JoinGame() {
     const [roomCode, setRoomCode] = useState("")
     const [startedGame, setStartedGame] = useState(false)
+    const [gameData, setGameData] = useState(null)
 
     const handleSub = (e) => {
         e.preventDefault()
         const socket = socketIOClient(ENDPOINT);
         socket.emit("joinRoom", { roomCode: roomCode, socketId: socket.id })
-        setStartedGame(true)
+        
         
     }
+
+    useEffect(() => {
+        const socket = socketIOClient(ENDPOINT);
+        socket.on("started", (data)=>{
+            setGameData(data)
+            setStartedGame(true)
+        })
+    }, [])
 
     if (startedGame === false) {
         return (
@@ -31,7 +40,7 @@ export default function JoinGame() {
     } else {
         return (
             <>
-                <MPGame />
+                <MPGame gameData = {gameData} hoster = {false} />
             </>
         )
     }

@@ -6,9 +6,9 @@ const functions = require("./functions")
 const app = express();
 const server = http.createServer(app);
 
-let games = []
+let games = {}
 
-const io = socketIo(server, {  cors: {    origin: "http://localhost:3000",    methods: ["GET", "POST"]  }});
+const io = socketIo(server, {  cors: {    origin: "*",    methods: ["GET", "POST"]  }});
 
 
 io.on("connection", (socket) => {
@@ -16,6 +16,7 @@ io.on("connection", (socket) => {
 
   socket.on("createRoom", (data)=>{functions.createGame(data, games)})
   socket.on("joinRoom", (data)=>{functions.joinGame(data, games, io)})
+  socket.on("change", (data)=>{functions.stateChange(data, games, io)})
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");

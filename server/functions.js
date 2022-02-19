@@ -1,16 +1,22 @@
 const createGame = (data, games) => {
-    games.push({"roomCode":data.roomCode, "host":data.host, "board":data.board})
+    games[data.roomCode] = { "host": data.host, "board": data.board }
+    console.log(games)
 }
 
 const joinGame = (data, games, sock) => {
-    console.log(data.roomCode, games)
-    for (let i = 0; i < games.length; i++){
-        if (games[i].roomCode.toString() === data.roomCode){
-            console.log("test")
-            sock.emit("started")
-        }
+    if (games[data.roomCode] !== undefined || games[data.roomCode] !== ''){
+        let arr = [true, false]
+        sock.emit("started", { roomCode: data.roomCode, board: games[data.roomCode].board, host: games[data.roomCode].host, isHostTurn: arr[Math.floor(Math.random() * arr.length)] })
     }
+    else
+        console.log("error")
+}
+
+const stateChange = (data, games, sock) => {
+    games[data.roomCode].board = data.board
+    console.log(games[data.roomCode].board , data.board)
+    sock.emit("change", { roomCode: data.roomCode, board: games[data.roomCode].board, turn: !data.turn})
 }
 
 
-module.exports = {createGame, joinGame}
+module.exports = { createGame, joinGame, stateChange }
